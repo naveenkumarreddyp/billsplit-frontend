@@ -139,7 +139,7 @@ export const AuthProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["checkAuth"],
     queryFn: () => getData(endpoints.checkAuth),
-    retry: (failureCount, error) => error?.response?.status !== 401 && failureCount < 2,
+    retry: false,
   });
 
   const userInfoData = userData?.data || null;
