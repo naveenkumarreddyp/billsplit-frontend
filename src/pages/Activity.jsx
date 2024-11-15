@@ -129,7 +129,7 @@ export default function FriendRequests() {
 
   if (isLoading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
   if (error) return <div className="text-red-500 text-center">An error occurred: {error.message}</div>;
-  if (!data?.pages?.data?.length) {
+  if (!data?.pages?.[0]?.data?.length) {
     return <div className="text-center py-4 text-gray-500">No friend requests found.</div>;
   }
 
@@ -137,7 +137,7 @@ export default function FriendRequests() {
     <div className="max-w-md mx-auto p-4 sm:p-6 md:max-w-lg lg:max-w-xl">
       <h1 className="text-2xl font-bold mb-6 text-center">Friend Requests</h1>
       <div className="space-y-4">
-        {data?.pages.map((page, i) => (
+        {data?.pages?.map((page, i) => (
           <React.Fragment key={i}>
             {page?.data?.map((request) => {
               const status = getRequestStatus(request.friendRequestId);
