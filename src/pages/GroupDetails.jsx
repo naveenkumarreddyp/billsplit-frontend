@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Settings, ChevronUp, ChevronDown, Plus } from "lucide-react";
@@ -20,6 +20,9 @@ export default function GroupDetails() {
   const [showBalanceDetails, setShowBalanceDetails] = useState(false);
   const [groupExpensesDetails, setGroupExpensesDetails] = useState(false);
   const authUser = useSelector((state) => state.auth?.user);
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const fetchGroupDetails = async (groupid) => {
     const response = await getDatabyparams(endpoints.fetchGroupDetails, groupid);

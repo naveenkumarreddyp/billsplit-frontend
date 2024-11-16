@@ -73,7 +73,7 @@ export default function Sidebar({ className = "" }) {
   });
 
   const handleLogout = () => {
-    console.log("-----logout triggered-----");
+    // console.log("-----logout triggered-----");
     logout();
   };
   return (

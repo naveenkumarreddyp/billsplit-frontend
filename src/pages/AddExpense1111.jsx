@@ -713,7 +713,7 @@ export default function AddExpense() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ expenseName, totalBill, paidBy, contribution, splits });
+    // console.log({ expenseName, totalBill, paidBy, contribution, splits });
     toast.success("Expense created successfully!");
   };
 

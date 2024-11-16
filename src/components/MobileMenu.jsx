@@ -40,7 +40,7 @@ export default function MobileMenu({ isOpen, onClose }) {
   });
 
   const handleLogout = () => {
-    console.log("-----logout triggered at mobile menu-----");
+    // console.log("-----logout triggered at mobile menu-----");
     logout();
   };
   return (

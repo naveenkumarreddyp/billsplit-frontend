@@ -18,7 +18,7 @@ export default function Groups() {
 
   const fetchGroups = async ({ pageParam = 0 }) => {
     const response = await getDatabyparams(endpoints.fetchGroups, authUser?.userId);
-    console.log("-------groups response --------", JSON.stringify(response.data));
+    // console.log("-------groups response --------", JSON.stringify(response.data));
     return response.data;
   };
 

@@ -97,17 +97,17 @@ export const useApiMutation = (endpoint) => {
     mutate,
   } = useMutation({
     mutationFn: async (data) => {
-      console.log(`Mutation request to ${endpoint}:`, data);
+      // console.log(`Mutation request to ${endpoint}:`, data);
       const response = await api.post(endpoint, data);
-      console.log(`Mutation response from ${endpoint}:`, response.data);
+      // console.log(`Mutation response from ${endpoint}:`, response.data);
       return response.data;
     },
   });
   if (isSuccess) {
-    console.log("---issucess from useApi--", responseData);
+    // console.log("---issucess from useApi--", responseData);
   }
   if (isError) {
-    console.log("----iserror from useApi----", error.response);
+    // console.log("----iserror from useApi----", error.response);
   }
   return { responseData, error, isError, isPending, isSuccess, mutate };
 };
@@ -126,16 +126,16 @@ export const useApiQuery = (endpoint, options = {}) => {
   } = useQuery({
     queryKey: [endpoint, options.queryKey],
     queryFn: async () => {
-      console.log(`Query request to ${endpoint}`);
+      // console.log(`Query request to ${endpoint}`);
       const response = await api.get(endpoint);
-      console.log(`Query response from ${endpoint}:`, response.data);
+      // console.log(`Query response from ${endpoint}:`, response.data);
       return response.data;
     },
     retry: (failureCount, error) => error?.response?.status !== 401 && failureCount < 2,
     // ...options,
   });
   if (isSuccess) {
-    console.log("---issucess--", userdata);
+    // console.log("---issucess--", userdata);
     // if (options.onSuccess) {
     //   options.onSuccess(userdata);
     // }
@@ -144,7 +144,7 @@ export const useApiQuery = (endpoint, options = {}) => {
     // }
   }
   if (isError) {
-    console.log("----iserror----", error.response);
+    // console.log("----iserror----", error.response);
     // if (error.response?.data?.status === 401) {
     //   // options.refetch;
     //   dispatch(clearUser());
