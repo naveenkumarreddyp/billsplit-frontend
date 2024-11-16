@@ -30,11 +30,6 @@ export default function RegisterForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const registerMutation = useApiMutation(endpoints.register, {
-  //   successMessage: "Registration successful!",
-  //   successRedirect: "/home",
-  // });
-
   const { responseData, error, isError, isPending, isSuccess, mutate } = useApiMutation(endpoints.register);
   if (isSuccess) {
     if (responseData?.statuscode === 200) {

@@ -22,16 +22,12 @@ export default function ProtectedRoute({ children }) {
     },
   });
 
-  // useEffect(() => {
-  //   if (!isLoading && !isError && isAuthenticated) {
-  //     if (location.pathname === "/login" || location.pathname === "/register") {
-  //       navigate("/");
-  //     }
-  //   }
-  // }, [isLoading, isError, isAuthenticated, location.pathname, navigate]);
-
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-40">
+        <Loader />
+      </div>
+    );
   }
 
   if (isError || !isAuthenticated) {

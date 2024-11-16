@@ -1,36 +1,3 @@
-// import React from "react";
-// import { NavLink } from "react-router-dom";
-// import { navigationLinks } from "../data/navigationLinks";
-// import * as Icons from "lucide-react";
-
-// export default function Sidebar({ className = "" }) {
-//   return (
-//     <aside className={`bg-white w-64 h-full fixed left-0 top-16 bottom-0 shadow-md overflow-y-auto ${className}`}>
-//       <nav className="flex flex-col h-full">
-//         <ul className="flex-1 py-4">
-//           {navigationLinks.map((link) => {
-//             const Icon = Icons[link.icon];
-//             return (
-//               <li key={link.path}>
-//                 <NavLink to={link.path} className={({ isActive }) => `flex items-center p-4 ${isActive ? "bg-gray-100" : ""}`}>
-//                   <Icon className="w-6 h-6 mr-2" />
-//                   {link.label}
-//                 </NavLink>
-//               </li>
-//             );
-//           })}
-//         </ul>
-//         <div className="p-4 mt-auto">
-//           <button className="flex items-center text-red-500 p-2">
-//             <Icons.LogOut className="w-6 h-6 mr-2" />
-//             Logout
-//           </button>
-//         </div>
-//       </nav>
-//     </aside>
-//   );
-// }
-
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Home, Users, UserPlus, Settings, Activity, LogOut } from "lucide-react";

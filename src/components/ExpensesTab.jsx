@@ -4,6 +4,7 @@ import { getDatabyparams } from "../apiService/apiservice";
 import { endpoints } from "../api/api";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./Loader";
+import { ReceiptIndianRupee } from "lucide-react";
 
 export default function ExpensesTab({ groupId }) {
   const navigate = useNavigate();
@@ -27,8 +28,6 @@ export default function ExpensesTab({ groupId }) {
     );
   }
 
-  // console.log("----Expenes list-Data-------", JSON.stringify(data));
-
   if (error) {
     return <div className="text-center py-4 text-red-500">An error occurred: {error.message}</div>;
   }
@@ -46,7 +45,9 @@ export default function ExpensesTab({ groupId }) {
           onClick={() => navigate(`/groups/${groupId}/expense/${expense?.expenseId}`, { state: { expenseId: expense?.expenseId, groupId: groupId } })}
         >
           <div className="flex items-center">
-            <div className="bg-gray-200 p-2 rounded-full mr-4">🛒</div>
+            <div className="bg-gray-200 p-2 rounded-full mr-4">
+              <ReceiptIndianRupee size={30} />
+            </div>
             <div>
               <h3 className="font-semibold">{expense?.expenseName}</h3>
               <p className="text-sm text-gray-600">{new Date(expense?.createdAt).toLocaleDateString()}</p>

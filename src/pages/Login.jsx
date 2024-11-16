@@ -24,35 +24,6 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const loginMutation = useApiMutation(endpoints.login, {
-  //   successMessage: "Login successful!",
-  //   successRedirect: "/",
-  //   authAction: true,
-  // });
-  //-------------------------------------------------------------------------
-  // const { responseData, error, isError, isPending, isSuccess, mutate } = useApiMutation(endpoints.login);
-  // if (isSuccess) {
-  // if (responseData?.statuscode === 200) {
-  //   toast.success(responseData?.message);
-  //   dispatch(setUser({}));
-  //   navigate("/");
-  // } else {
-  //   toast.error(responseData?.message);
-  // }
-  // }
-  // if (isError) {
-  // if (error.response?.status === 401) {
-  //   toast.error("Something Went Worng");
-  //   // dispatch(clearUser());
-  //   // navigate("/login");
-  // } else {
-  //   console.log(error.response?.message);
-  // }
-  // }
-  ///-----------------------------------------------------------
-
-  ///---------------------------New Approach ---------------------
   let { mutate, isPending } = useMutation({
     mutationFn: async (data) => {
       const response = await postData(endpoints.login, data);

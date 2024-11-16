@@ -34,8 +34,6 @@ export default function ExpenseDetails() {
     queryFn: () => fetchExpenseDetails(expenseid),
     enabled: !!expenseid,
   });
-  //  console.log("-------expenseData------------", JSON.stringify(expenseData));
-  // if (isLoading) return <div className="text-center py-4">Loading...</div>;
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -45,9 +43,6 @@ export default function ExpenseDetails() {
   }
   if (error) return <div className="text-center py-4 text-red-500">An error occurred: {error.message}</div>;
   if (!expenseData) return <div className="text-center py-4">Expense not found</div>;
-
-  // const expense = group.expenses.find((e) => e.id === Number(expenseId));
-  // if (!expense) return <div className="text-center py-4">Expense not found</div>;
 
   return (
     <div className="space-y-4">
