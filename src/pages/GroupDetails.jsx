@@ -87,8 +87,8 @@ export default function GroupDetails() {
     }
   };
 
-  console.log("------agwertyu-----", JSON.stringify(group));
-  console.log("------agwertyusdgjkl-----", JSON.stringify(usersOwesDetails));
+  // console.log("------agwertyu-----", JSON.stringify(group));
+  // console.log("------agwertyusdgjkl-----", JSON.stringify(usersOwesDetails));
 
   const renderContent = () => {
     switch (activeTab) {
@@ -118,7 +118,7 @@ export default function GroupDetails() {
         </button>
         <h1 className="text-2xl font-bold">{group?.groupName}</h1>
         <button className="p-2">
-          <Settings size={24} />
+          <Settings className="hidden" size={24} />
         </button>
       </div>
 
@@ -133,17 +133,20 @@ export default function GroupDetails() {
           </p>
           <span>{showBalanceDetails ? <ChevronUp size={20} /> : <ChevronDown size={20} />}</span>
         </div>
-        {showBalanceDetails && usersOwesDetails?.length > 0 && (
-          <div className="mt-2 space-y-1">
-            {usersOwesDetails?.map(
-              (userOwedata) =>
-                userOwedata?.userName !== authUser?.userName &&
-                userOwedata?.balance !== 0 && (
-                  <p key={userOwedata?.userName} className="text-sm">
-                    You {userOwedata?.balance > 0 ? "owe" : "are owed"} {userOwedata?.userName} ₹ {Math.abs(userOwedata?.balance)}
-                  </p>
-                )
-            )}
+        {showBalanceDetails && (
+          <div className="mt-2 space-y-2">
+            {isLoading && <p>Loading...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {usersOwesDetails?.length > 0 &&
+              usersOwesDetails?.map(
+                (userOwedata) =>
+                  userOwedata?.userName !== authUser?.userName &&
+                  userOwedata?.balance !== 0 && (
+                    <p key={userOwedata?.userName} className="text-sm">
+                      You {userOwedata?.balance > 0 ? "owe" : "are owed"} {userOwedata?.userName} ₹ {Math.abs(userOwedata?.balance)}
+                    </p>
+                  )
+              )}
           </div>
         )}
       </div>

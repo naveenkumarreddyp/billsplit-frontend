@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, ChevronDown, Loader } from "lucide-react";
 import toast from "react-hot-toast";
 import EqualSplit from "../components/Equalsplit";
 import UnequalSplit from "../components/UnequalSplit";
@@ -216,11 +216,25 @@ export default function AddExpense() {
         {contribution === "equal" && <EqualSplit userList={groupMembers} totalBill={parseFloat(totalBill) || 0} onSplitChange={handleSplitChange} />}
         {contribution === "unequal" && <UnequalSplit userList={groupMembers} totalBill={parseFloat(totalBill) || 0} onSplitChange={handleSplitChange} />}
         {contribution === "percentage" && <PercentageSplit userList={groupMembers} totalBill={parseFloat(totalBill) || 0} onSplitChange={handleSplitChange} />}
-
-        <button type="submit" className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          Create Expense
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 flex items-center justify-center"
+        >
+          {isPending ? (
+            <>
+              <Loader className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+              Creating...
+            </>
+          ) : (
+            "Create Expense"
+          )}
         </button>
       </form>
     </div>
   );
 }
+
+// <button type="submit" className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+//   Create Expense
+// </button>;

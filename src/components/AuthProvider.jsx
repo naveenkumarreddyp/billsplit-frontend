@@ -160,6 +160,12 @@ export const AuthProvider = ({ children }) => {
   if (isLoading) {
     return <Loader />;
   }
-
+  // {
+  //   isLoading && (
+  //     <div className="flex items-center justify-center h-full">
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   return children;
 };

@@ -34,7 +34,7 @@ export default function ExpenseDetails() {
     queryFn: () => fetchExpenseDetails(expenseid),
     enabled: !!expenseid,
   });
-  console.log("-------expenseData------------", JSON.stringify(expenseData));
+  //  console.log("-------expenseData------------", JSON.stringify(expenseData));
   // if (isLoading) return <div className="text-center py-4">Loading...</div>;
   if (isLoading) {
     return (

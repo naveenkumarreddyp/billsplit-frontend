@@ -1,24 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { postData } from "../apiService/apiservice";
 import { endpoints } from "../api/api";
-
-// const addFriend = async (friendData) => {
-// // const friends = JSON.parse(localStorage.getItem("friends") || "[]");
-// const newFriend = {
-//   ...friendData,
-//   id: Date.now(),
-//   addedDate: new Date().toISOString(),
-//   status: "pending",
-// };
-// friends.push(newFriend);
-// // localStorage.setItem("friends", JSON.stringify(friends));
-// return newFriend;
-// };
 
 export default function AddFriend() {
   const [name, setName] = useState("");
@@ -27,17 +14,20 @@ export default function AddFriend() {
   const [notificationMethod, setNotificationMethod] = useState([]);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const userId = useSelector((state) => state.auth?.user?.userId);
+  const authUser = useSelector((state) => state.auth?.user);
 
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data) => {
-      console.log("--------------asdgjcxwertyu-------------");
-      await postData(endpoints.addFriend, data);
+      let response = await postData(endpoints?.addFriend, data);
+      return response;
     },
-    onSuccess: () => {
-      // queryClient.invalidateQueries("friends");
-      toast.success("Friend added successfully!");
-      navigate("/friends");
+    onSuccess: (responseData) => {
+      if (!responseData?.success) {
+        toast.error(responseData?.message);
+      } else {
+        toast.success("Friend added successfully!");
+        navigate("/friends");
+      }
     },
     onError: () => {
       toast.error("Failed to add friend. Please try again.");
@@ -50,7 +40,7 @@ export default function AddFriend() {
       toast.error("Please select at least one notification method");
       return;
     }
-    mutation.mutate({ user1Id: userId, user2Name: name, user2Email: email, requestMethod: notificationMethod });
+    mutate({ user1Id: authUser?.userId, user2Name: name, user2Email: email, requestMethod: notificationMethod });
   };
 
   return (
@@ -145,9 +135,19 @@ export default function AddFriend() {
             </label>
           </div>
         </div>
-
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          Add Friend
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 flex items-center justify-center"
+        >
+          {isPending ? (
+            <>
+              <Loader className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+              Adding...
+            </>
+          ) : (
+            "Add Friend"
+          )}
         </button>
       </form>
     </div>

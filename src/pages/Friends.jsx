@@ -502,7 +502,7 @@ export default function Friends() {
       )}
       {error && <div className="text-center py-4 text-red-500">An error occurred: {error.message}</div>}
 
-      {friendsList.length > 0 ? friendsList.map((friend) => <FriendCard key={friend?.friendRequestId} friend={friend} />) : <span className="text-center block">No Friends Found</span>}
+      {friendsList?.length > 0 ? friendsList.map((friend) => <FriendCard key={friend?.friendRequestId} friend={friend} />) : !isLoading && <span className="text-center block">No Friends Found</span>}
 
       {(hasNextPage || isFetchingNextPage) && (
         <div ref={observerRef} className="h-10 flex items-center justify-center">

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { ArrowLeft, X, Search, User } from "lucide-react";
+import { ArrowLeft, X, Search, User, Loader } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import toast from "react-hot-toast";
@@ -37,15 +37,14 @@ export default function AddGroupPage() {
     enabled: false,
   });
 
-  let { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data) => {
       const response = await postData(endpoints.createGroup, data);
       return response;
     },
-
     onError: (error) => {
       if (error.response?.status === 401) {
-        toast.error("Something Went Worng");
+        toast.error("Something Went Wrong");
       } else {
         console.log(error.response?.message);
       }
@@ -98,17 +97,12 @@ export default function AddGroupPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (groupName && selectedFriends?.length > 0) {
-      // console.log("Group Name:", groupName);
-      // console.log("Selected Friends:", selectedFriends);
       selectedFriends.push({
         userId: authUser.userId,
         userName: authUser.userName,
         userEmail: authUser.userEmail,
       });
       mutate({ groupName: groupName, groupUsers: selectedFriends });
-      setGroupName("");
-      setSelectedFriends([]);
-      //toast.success("Group created successfully!");
     } else {
       toast.error("Please add at least a friend");
     }
@@ -218,8 +212,19 @@ export default function AddGroupPage() {
           </div>
         )}
 
-        <button type="submit" className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          Create Group
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full sm:w-auto bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 flex items-center justify-center"
+        >
+          {isPending ? (
+            <>
+              <Loader className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+              Creating...
+            </>
+          ) : (
+            "Create Group"
+          )}
         </button>
       </form>
     </div>
